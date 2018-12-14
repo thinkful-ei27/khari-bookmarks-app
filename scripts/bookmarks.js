@@ -16,7 +16,7 @@ const bookMarks = (function(){
   function render(){ 
     let items = [];
     store.items.forEach(item=> {
-      if(item.rating >= minRating){
+      if(item.rating >= store.minRating){
         items.push(item);
       }});
 
@@ -25,13 +25,28 @@ const bookMarks = (function(){
     }
 
     
-
+    //rending bookmarks into the dom
     const bookmarkString = generateBookmarksString(items);
-
+    //insert HTML into the DOM
     $('.js-bookmark-list').html(bookmarkString);
   }
 
+
+
+
   function handleNewItemSubmit(){
+    $('js-bookmark-form').submit(function (event){
+      event.preventDefault();
+      const formData = new FormData(this[0]);
+      const obj ={};
+      formData.forEach((val, key)=>{
+        obj[key]=val;
+        applicationCache.createItem(formData, (newItem)=>{
+          store.addItem(newItem);
+          render();
+        });
+      });
+    });
 
   }
 

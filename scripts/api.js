@@ -11,13 +11,8 @@ const api = (function(){
 
   //Create item with POST request
   const creatItems = function(name, callback){
-    const formData = new FormData(this[0]);
-    const obj ={};
-    formData.forEach((val, key) =>{
-      obj[key] = val;
-    });
     const newItem = JSON.stringify(
-      obj
+      {name: name}
     );
     $.ajax({
       'url':`${BASE_URL}`,
