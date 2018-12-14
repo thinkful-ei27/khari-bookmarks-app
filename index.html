@@ -13,11 +13,16 @@
           <button type="button">Add bookmark</button>
           <form id="js-bookmark-form">
               <label for="bookmark-entry">Add new bookmark</label>
-              <!--<input type="text" name="bookmark-entry" class="js-bookmark-entry" placeholder="enter a website">-->
+              <input type="text" name="bookmark-entry" class="js-bookmark-entry" placeholder="enter a website">
               <button type="submit">Add item</button>
               <div>
-                  <input type="checkbox" id="filter-checked" class="filter-checked js-filter-checked"/>
-                  <label for="filter-checked">Hide Checked</label>
+                <select name="min-rating">
+                    <option value="1">1 Star</option>
+                    <option value="2" selected>2 Stars</option>
+                    <option value="3">3 Stars</option>
+                    <option value="4">4 Stars</option>
+                    <option value="5">5 Stars</option>
+                </select>
               </div>
 
           </form>

@@ -15,6 +15,7 @@ const bookMarks = (function(){
 
   function render(){ 
     let items = [];
+    store.minRating = $('.min-rating').val();
     store.items.forEach(item=> {
       if(item.rating >= store.minRating){
         items.push(item);
@@ -41,7 +42,7 @@ const bookMarks = (function(){
       const obj ={};
       formData.forEach((val, key)=>{
         obj[key]=val;
-        applicationCache.createItem(formData, (newItem)=>{
+        api.createItem(formData, (newItem)=>{
           store.addItem(newItem);
           render();
         });
