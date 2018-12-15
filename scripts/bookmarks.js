@@ -2,10 +2,20 @@
 'use strict';
 
 const bookMarks = (function(){
-  function generateItemElement(item){
-    const expandedItem = item.Expanded ? 'bookmark-item__expanded' : '';
 
-    let itemTitle = 'This is placeholder for item HTML';
+
+  function generateItemElement(item){
+    const expandedItem = item.expanded ? 'bookmark-item__expanded' : '';
+
+    let itemTitle = `<span class="bookmark-item ${expandedItem}">${item.name}</span>`;
+    if (item.expanded){
+      itemTitle = `
+        <form class="bookmark-discription">
+          <textarea rows="4" cols="50">${item.description}</textarea>
+          
+      `
+    }
+    
   }
 
   function generateBookmarksString(bookmarks){
@@ -33,7 +43,18 @@ const bookMarks = (function(){
   }
 
 
+//Will bring up a popup form('js-bookmark-form) for user to fill out and add item to store
+  function handleAddBookmark(){
+    
+  }
 
+
+//on click, bookmark must expand to reveal URL, longer description, and the buttons "Edit" and "Delete"   
+  function handleExpandItem(item){
+    //minimize all items and keep only ONE expanded at a time
+    store.items.forEach(item => item.expanded = false);
+    getItemFromElement(item).expanded = true;
+  }
 
   function handleNewItemSubmit(){
     $('js-bookmark-form').submit(function (event){
@@ -58,13 +79,25 @@ const bookMarks = (function(){
   }
 
   function handleDeleteItemClicked(){
-
+//if only one is expanded at a time then DELETE could just always target expanded item?
   }
 
   function handleFilterRating(){
+    store.adjustRatingFilter($('.min-rating').val());
+  }
 
+  function bindEventListeners(){
+    handleAddBookmark();
+    handleDeleteItemClicked();
+    handleFilterRating();
+    handleNewItemSubmit();
+    handleExpandItem();
   }
 
 
+  return{
+    render: render,
+    bindEventListeners: bindEventListeners,
+  };
 
 }());

@@ -9,11 +9,14 @@ const Item = (function(){
       if(!name) throw new TypeError('Name must not be blank');
   };*/
 
-  const create = function(name){
+  const create = function(name, rating){
     return{
       id: cuid(),
       name,
-      rating
+      rating,
+      expanded: false,
+      url: '',
+      description: ''
     };
   };
 
